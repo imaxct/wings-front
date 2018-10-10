@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {DefaultButton, Nav, Panel, PanelType, Persona, PrimaryButton} from 'office-ui-fabric-react';
+import {Nav, Persona} from 'office-ui-fabric-react';
 import AppContext from '../../AppContext';
 import './Main.css';
 import LoginPanel from "./component/LoginPanel";
