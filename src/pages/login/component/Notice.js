@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import Http from '../../../Http'
-import {ScrollablePane} from "office-ui-fabric-react";
 
 
 class Notice extends Component {
@@ -17,9 +16,7 @@ class Notice extends Component {
 
     render() {
         return (
-            <ScrollablePane>
-                <div dangerouslySetInnerHTML={{__html :this.state.notice }}/>
-            </ScrollablePane>
+            <div dangerouslySetInnerHTML={{__html: this.state.notice}} {...this.props}/>
         );
     }
 }

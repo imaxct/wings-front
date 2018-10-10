@@ -1,8 +1,7 @@
 import React, {Component} from 'react';
 import Main from './pages/main/Main';
-import Login from './pages/login/Login';
 import AppContext from './AppContext';
-import { ToastContainer } from "react-toastify";
+import {ToastContainer} from "react-toastify";
 import 'react-toastify/dist/ReactToastify.min.css';
 
 
@@ -19,12 +18,7 @@ class App extends Component {
     render() {
         return (
             <AppContext.Provider value={this.state}>
-                {this.state.login &&
                 <Main/>
-                }
-                {(!this.state.login) &&
-                <Login/>
-                }
                 <ToastContainer
                     autoClose={5000}
                     position="top-right"

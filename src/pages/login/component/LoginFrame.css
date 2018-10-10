@@ -1,0 +1,4 @@
+.login-frame{
+    display: flex;
+    flex-direction: column;
+}
