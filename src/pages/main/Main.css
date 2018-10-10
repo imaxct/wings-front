@@ -30,6 +30,7 @@
 
 .body-container .nav-bar {
     min-width: 130px;
+    border-right: 1px solid #eee;
 }
 
 .body-container .content {

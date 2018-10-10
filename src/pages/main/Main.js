@@ -2,6 +2,8 @@ import React, {Component} from 'react';
 import {DefaultButton, Nav, Panel, PanelType, Persona, PrimaryButton} from 'office-ui-fabric-react';
 import AppContext from '../../AppContext';
 import './Main.css';
+import LoginPanel from "./component/LoginPanel";
+import Footer from "./component/Footer";
 
 class Main extends Component {
     state = {
@@ -14,7 +16,20 @@ class Main extends Component {
         this.setState({selected});
     };
 
-    getFirstName = () => this.state.personalInfo.studentName.substring(0, 1);
+    getGivenName = () => {
+        const name = this.state.personalInfo.studentName;
+        if (name === null || name === '') {
+            return '登录';
+        }
+        const len = name.length;
+
+        if (len === 2) {
+            return name;
+        } else if (len > 2) {
+            return name.substring(len - 2, len);
+        }
+        return name;
+    };
 
     render() {
         return (
@@ -23,7 +38,7 @@ class Main extends Component {
                     <header className='App-header'>
                         <h1 className='App-link'>添翼工程报名系统</h1>
                         <Persona
-                            imageInitials={login ? this.getFirstName() : '登录'}
+                            imageInitials={login ? this.getGivenName() : '登录'}
                             onClick={this._openPanel}
                             hidePersonaDetails={true}
                             className="Head-avatar"/>
@@ -53,22 +68,21 @@ class Main extends Component {
                             }
                         </div>
                     </div>
-                    <Panel
+                    <LoginPanel
                         isOpen={this.state.showPanel}
-                        type={PanelType.smallFixedFar}
-                        onDismiss={this._closePanel}
-                        onRenderFooterContent={this._onRenderFooterContent}
-                        headerText='用户登录'
-                    >
-
-                    </Panel>
-                    <footer className='footer'>
-
-                    </footer>
+                        closePanel={this._closePanel}
+                        updateLogin={updateLogin}
+                        updateInfo={this._updateInfo}
+                    />
+                    <Footer/>
                 </div>
             )}</AppContext.Consumer>
         );
     }
+
+    _updateInfo = personalInfo => {
+        this.setState({personalInfo});
+    };
 
     _closePanel = () => {
         this.setState({showPanel: false});
@@ -77,16 +91,7 @@ class Main extends Component {
     _openPanel = () => {
         this.setState({showPanel: true});
     };
-    _onRenderFooterContent = () => {
-        return (
-            <div>
-                <PrimaryButton onClick={this._closePanel} style={{marginRight: '8px'}}>
-                    登录
-                </PrimaryButton>
-                <DefaultButton onClick={this._closePanel}>取消</DefaultButton>
-            </div>
-        );
-    };
+
 }
 
 export default Main;
