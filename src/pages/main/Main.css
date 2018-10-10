@@ -1,0 +1,31 @@
+.App {
+    text-align: center;
+  }
+  
+  .App-header {
+    background-color: #282c34;
+    min-height: 2vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: calc(10px + 2vmin);
+    color: white;
+  }
+  
+  .App-link {
+    font-size: 2rem;
+  }
+  
+  .body-container {
+    display: flex;
+    flex-direction: row;
+    flex: 1;
+  }
+  
+  .body-container .navbar {
+    min-width: 130px;
+  }
+  .body-container .content {
+    flex: 1;
+  }
