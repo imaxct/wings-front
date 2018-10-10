@@ -1,15 +1,29 @@
 import React, { Component } from 'react';
-import { Main } from './pages/main/Main';
-import { Login } from './pages/login/Login';
+import Main from './pages/main/Main';
+import Login from './pages/login/Login';
+import AppContext from './AppContext';
 
 class App extends Component {
-  login = false;
+  updateLogin = login => {
+    this.setState({login});
+  };
+
+  state = {
+    login: true,
+    updateLogin: this.updateLogin
+  };
+  
   render() {
-    if (this.login) {
-      return <Main/>;
-    } else {
-      return <Login/>;
+    return (
+    <AppContext.Provider value={this.state}>
+    {this.state.login &&
+      <Main/>
     }
+    {(!this.state.login) &&
+      <Login/>
+    }
+    </AppContext.Provider>
+    );
   }
 }
 
