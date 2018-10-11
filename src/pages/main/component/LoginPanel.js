@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {DefaultButton, Panel, PanelType, Persona, PersonaSize, PrimaryButton, TextField} from "office-ui-fabric-react";
+import {DefaultButton, Panel, PanelType, Persona, PersonaSize, TextField} from "office-ui-fabric-react";
 import Http from "../../../Http";
 import Toast from "../../../Toast";
 import Util from "../../../Util";
@@ -98,7 +98,21 @@ class LoginPanel extends Component {
     };
 
     _proceedFillInfo = () => {
-
+        this._updateLoading(true);
+        Http.post('/Student/fill', {...this.state.nullInfo, id: this.state.info.id})
+            .then(res => {
+                this._updateLoading(false);
+                if (res.ok) {
+                    this.props.updateInfo(res.data);
+                    this.props.closePanel();
+                    Toast.info("更新成功");
+                    this.setState({info: res.data});
+                    this.setState({fullInfo: this._infoIsFull(res.data)});
+                } else {
+                    Toast.error(res.msg);
+                    this.props.closePanel();
+                }
+            });
     };
 
     _infoIsFull = (info) => {
@@ -126,14 +140,21 @@ class LoginPanel extends Component {
         return (
             <div>
                 {this.props.login ?
-                    <LoadingButton onClick={this._proceedLogout} style={{marginRight: '8px'}}>退出</LoadingButton>
+                    <LoadingButton
+                        onClick={this._proceedLogout}
+                        loading={this.state.loading}
+                        style={{marginRight: '8px'}}>退出</LoadingButton>
                     :
-                    <LoadingButton onClick={this._proceedLogin} style={{marginRight: '8px'}}>登录</LoadingButton>
+                    <LoadingButton
+                        onClick={this._proceedLogin}
+                        loading={this.state.loading}
+                        style={{marginRight: '8px'}}>登录</LoadingButton>
                 }
                 {!this.state.fullInfo && this.props.login &&
-                <LoadingButton style={{marginRight: '8px'}} onClick={this._proceedFillInfo}>
-                    更新
-                </LoadingButton>
+                <LoadingButton
+                    style={{marginRight: '8px'}}
+                    onClick={this._proceedFillInfo}
+                    loading={this.state.loading}>更新</LoadingButton>
                 }
                 <DefaultButton onClick={this.props.closePanel}>取消</DefaultButton>
             </div>
