@@ -64,7 +64,7 @@ class PersonalInfo extends Component {
                         onChange={this.props.updateInfo}/>);
                 }
             } else {
-                this.rows.push(<div><Label key={key} required={true}>{NAMES[key]}: {localInfo[key]}</Label></div>);
+                this.rows.push(<Label key={key} required={true}>{NAMES[key]}: {localInfo[key]}</Label>);
             }
         }
     }

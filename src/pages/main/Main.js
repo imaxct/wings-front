@@ -6,12 +6,14 @@ import LoginPanel from "./component/LoginPanel";
 import Footer from "./component/Footer";
 import Util from '../../Util'
 import Notice from "./component/Notice";
+import CourseList from "./component/CourseList";
+import Toast from "../../Toast";
 
 class Main extends Component {
     state = {
         selectedKey: 'notice',
         showPanel: false,
-        personalInfo: {}
+        personalInfo: {},
     };
 
     updateSelect = selectedKey => {
@@ -42,11 +44,21 @@ class Main extends Component {
                                         },
                                         {
                                             name: '课程列表', url: '', key: 'course', onClick: () => {
+                                                if (!login) {
+                                                    Toast.info('请先登录');
+                                                    this._openPanel();
+                                                    return;
+                                                }
                                                 this.updateSelect('course')
                                             }
                                         },
                                         {
                                             name: '已选课程', url: '', key: 'selected', onClick: () => {
+                                                if (!login) {
+                                                    Toast.info('请先登录');
+                                                    this._openPanel();
+                                                    return;
+                                                }
                                                 this.updateSelect('selected')
                                             }
                                         }
@@ -57,7 +69,10 @@ class Main extends Component {
                             />
                         </div>
                         <div className='content'>
-                            {this._selectDom(this.state.selectedKey)}
+                            {'notice' === this.state.selectedKey && <Notice/>}
+                            {'course' === this.state.selectedKey &&
+                            <CourseList info={this.state.personalInfo} login={login}/>}
+                            {'selected' === this.state.selectedKey && <div login={login}/>}
                         </div>
                     </div>
                     <LoginPanel
@@ -72,22 +87,6 @@ class Main extends Component {
             )}</AppContext.Consumer>
         );
     }
-
-    doms = {
-        notice: (
-            <Notice/>
-        ),
-        course: (
-            <div/>
-        ),
-        selected: (
-            <div/>
-        )
-    };
-
-    _selectDom = (selectedKey) => {
-        return this.doms[selectedKey];
-    };
 
     _updateInfo = personalInfo => {
         this.setState({personalInfo: personalInfo});
