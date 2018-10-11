@@ -54,10 +54,12 @@ class LoginPanel extends Component {
                 </div>
                 }
                 {this.props.login &&
-                <PersonalInfo
-                    info={this.state.info}
-                    updateInfo={this._onInfoChange}
-                />
+                <div>
+                    <PersonalInfo
+                        info={this.state.info}
+                        updateInfo={this._onInfoChange}
+                    />
+                </div>
                 }
             </Panel>
         );
@@ -99,7 +101,7 @@ class LoginPanel extends Component {
 
     _proceedFillInfo = () => {
         this._updateLoading(true);
-        Http.post('/Student/fill', {...this.state.nullInfo, id: this.state.info.id})
+        Http.put('/Student/fill', {...this.state.nullInfo, id: this.state.info.id})
             .then(res => {
                 this._updateLoading(false);
                 if (res.ok) {
