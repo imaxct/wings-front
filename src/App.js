@@ -20,7 +20,6 @@ class App extends Component {
             <AppContext.Provider value={this.state}>
                 <Main/>
                 <ToastContainer
-                    autoClose={5000}
                     position="top-right"
                     hideProgressBar
                 />

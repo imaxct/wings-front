@@ -11,9 +11,13 @@ class Footer extends Component {
                 background: '#282c34',
                 color: '#eee',
                 lineHeight: '1.5rem',
-                fontSize: '1.2rem'
+                fontSize: '.7rem',
+                textAlign: 'center'
             }}>
-                Yes
+                由&nbsp;<a style={{
+                textDecoration: 'none',
+            color: '#ddd'}}
+                     href='https://online.sdu.edu.cn/'>&copy;学生在线</a>&nbsp;提供技术支持
             </footer>
         );
     }
