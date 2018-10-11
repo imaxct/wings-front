@@ -3,7 +3,7 @@ import {toast} from "react-toastify";
 
 class Toast {
     static config = {
-        position: toast.POSITION.TOP_RIGHT,
+        position: toast.POSITION.BOTTOM_LEFT
 
     };
 

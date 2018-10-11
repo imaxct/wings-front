@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import Notice from './component/Notice';
+import Notice from '../main/component/Notice';
 import LoginFrame from './component/LoginFrame';
 
 import './Login.css';

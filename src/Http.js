@@ -10,6 +10,7 @@ const Http = axios.create({
 });
 Http.interceptors.response.use(res => res.data, error => {
     Toast.error(error.response.data.msg ? error.response.data.msg : "请求错误");
+    return error.response.data;
 });
 
 export default Http;
