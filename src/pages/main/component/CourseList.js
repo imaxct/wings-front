@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {DetailsList, DetailsListLayoutMode, SelectionMode} from "office-ui-fabric-react";
+import {DetailsList, DetailsListLayoutMode, Link, Modal, SelectionMode} from "office-ui-fabric-react";
 import LoadingButton from "./LoadingButton";
 import Http from '../../../Http';
 import Toast from "../../../Toast";
@@ -7,7 +7,9 @@ import Toast from "../../../Toast";
 class CourseList extends Component {
     state = {
         loading: false,
-        courseList: []
+        courseList: [],
+        open: false,
+        desc: ''
     };
 
     _columns = [
@@ -97,7 +99,11 @@ class CourseList extends Component {
             maxWidth: 100,
             isResizable: true,
             onRender: (item) => {
-                return <span>desc</span>;
+                return <Link onClick={() => {
+                    this.setState({desc: item.courseDesc});
+                    this._openModal();
+                }}>
+                    课程介绍</Link>;
             }
         },
         {
@@ -146,15 +152,38 @@ class CourseList extends Component {
 
     render() {
         return (
-            <DetailsList
-                selectionMode={SelectionMode.none}
-                columns={this._columns}
-                items={this.state.courseList}
-                layoutMode={DetailsListLayoutMode.justified}
-                compact={false}
-            />
+            <div>
+                <DetailsList
+                    selectionMode={SelectionMode.none}
+                    columns={this._columns}
+                    items={this.state.courseList}
+                    layoutMode={DetailsListLayoutMode.justified}
+                    compact={false}
+                />
+                <Modal
+                    isOpen={this.state.open}
+                    onDismiss={this._closeModal}
+                    isBlocking={false}
+                >
+                    <div style={{
+                        margin: '1rem',
+                        padding: '1rem',
+                        maxWidth: '500px'
+                    }}>
+                        <p>{this.state.desc}</p>
+                    </div>
+                </Modal>
+            </div>
         );
     }
+
+    _closeModal = () => {
+        this.setState({open: false});
+    };
+
+    _openModal = () => {
+        this.setState({open: true});
+    };
 }
 
 export default CourseList;

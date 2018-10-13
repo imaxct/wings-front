@@ -8,6 +8,7 @@ import Util from '../../Util'
 import Notice from "./component/Notice";
 import CourseList from "./component/CourseList";
 import Toast from "../../Toast";
+import SelectionList from "./component/SelectionList";
 
 class Main extends Component {
     state = {
@@ -72,7 +73,7 @@ class Main extends Component {
                             {'notice' === this.state.selectedKey && <Notice/>}
                             {'course' === this.state.selectedKey &&
                             <CourseList info={this.state.personalInfo} login={login}/>}
-                            {'selected' === this.state.selectedKey && <div login={login}/>}
+                            {'selected' === this.state.selectedKey && <SelectionList login={login}/>}
                         </div>
                     </div>
                     <LoginPanel
